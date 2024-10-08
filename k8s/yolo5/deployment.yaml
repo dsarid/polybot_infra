@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo
+  labels:
+    app: yolo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo
+  template:
+    metadata:
+        labels:
+          app: yolo
+    spec:
+      containers:
+      - name: yolo
+        image: inkcube/int-yolo:0.1.1
+        env:
+          - name: REGION
+            value: eu-central-1
+          - name: S3_BUCKET
+            value: k8s-danielms-prod
+          - name: TELEGRAM_APP_URL
+            value: http://polybot:8443
+          - name: DYNAMO_NAME
+            value: prediction-db-tf-prod
+          - name: SQS_QUEUE_NAME
+            value: danielms-tf-queue-prod
+
+        resources:
+#          requests:
+#            cpu: 200m
+#            memory: 500Mi
+#          limits:
+#            cpu: 500m
+#            memory: 1000Mi
