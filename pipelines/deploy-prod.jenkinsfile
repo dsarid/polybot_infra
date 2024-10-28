@@ -1,0 +1,57 @@
+pipeline {
+    agent {
+        label 'general'
+    }
+
+    parameters {
+        string(name: 'SERVICE_NAME', defaultValue: '', description: '')
+        string(name: 'IMAGE_FULL_NAME_PARAM', defaultValue: '', description: '')
+//         choice(name: 'SERVICE_NAME', choices: ['nf-catalog', 'nf-frontend'], description: 'Service to be build')
+    }
+
+    stages {
+        stage('Git setup') {
+            steps {
+                sh 'git checkout -b master || git checkout master'
+            }
+        }
+        stage('update YAML manifest') {
+            steps {
+                /*
+
+                Now your turn! implement the pipeline steps ...
+
+                - `cd` into the directory corresponding to the SERVICE_NAME variable.
+                - Change the YAML manifests according to the new $IMAGE_FULL_NAME_PARAM parameter.
+                  You can do so using `yq` or `sed` command, by a simple Python script, or any other method.
+                - Commit the changes, push them to GitHub.
+                   * Setting global Git user.name and user.email in 'Manage Jenkins > System' is recommended.
+                   * Setting Shell executable to `/bin/bash` in 'Manage Jenkins > System' is recommended.
+                */
+                sh '''
+                    export IMAGE_NAME="$IMAGE_FULL_NAME_PARAM"
+                    echo $IMAGE_NAME
+                    cd k8s/${SERVICE_NAME}
+                    # yq -i ".spec.template.spec.containers[0].image = \"${IMAGE_NAME}\"" deployment.yaml
+                    sed -i "s|image: .*|image: ${IMAGE_FULL_NAME_PARAM}|" deployment.yaml
+                    git add "deployment.yaml"
+                    git commit -m "Jenkins deploy $SERVICE_NAME $IMAGE_FULL_NAME_PARAM"
+                '''
+            }
+        }
+        stage('Git push') {
+            steps {
+               withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
+                 sh '''
+                 git push https://$GITHUB_TOKEN@github.com/dsarid/nf-devops.git master
+                 '''
+               }
+            }
+        }
+    }
+    post {
+        cleanup {
+            cleanWs()
+        }
+    }
+}
