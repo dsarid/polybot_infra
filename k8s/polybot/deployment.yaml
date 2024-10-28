@@ -23,7 +23,7 @@ spec:
           - name: S3_BUCKET
             value: k8s-danielms-prod
           - name: TELEGRAM_APP_URL
-            value: aa3b3b031911949598f47bf2cfc5e3fa-d4d290aab198653c.elb.eu-central-1.amazonaws.com
+            value: danielms-aws-project.int-devops.click
           - name: DYNAMO_NAME
             value: prediction-db-tf-prod
           - name: TELEGRAM_SECRET_TOKEN
