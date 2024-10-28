@@ -5,7 +5,7 @@ metadata:
   labels:
     app: polybot
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: polybot
@@ -15,21 +15,27 @@ spec:
         app: polybot
     spec:
       containers:
-
-      - name: server
-        image: inkcube/int-polybot:0.0.0
-        ports:
-        - containerPort: 8443
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: polybot-service
-spec:
-  selector:
-    app: polybot
-  ports:
-    - protocol: TCP
-      port: 8443
-      targetPort: 8443
+      - name: polybot
+        image: inkcube/int-polybot:0.0.2
+        env:
+          - name: REGION
+            value: eu-central-1
+          - name: S3_BUCKET
+            value: k8s-danielms-prod
+          - name: TELEGRAM_APP_URL
+            value: aa3b3b031911949598f47bf2cfc5e3fa-d4d290aab198653c.elb.eu-central-1.amazonaws.com
+          - name: DYNAMO_NAME
+            value: prediction-db-tf-prod
+          - name: TELEGRAM_SECRET_TOKEN
+            value: tf-telegram-token-c14faf8a-cc2a-3448-f9fe-62a35e4882fc-prod
+          - name: SQS_QUEUE_NAME
+            value: danielms-tf-queue-prod
+          - name: CERTIFICATE_ARN
+            value: arn:aws:acm:eu-central-1:019273956931:certificate/314ef06a-48ca-4c36-8a6d-45cafb65ff32
+        resources:
+#          requests:
+#            cpu: 200m
+#            memory: 500Mi
+#          limits:
+#            cpu: 500m
+#            memory: 1000Mi
