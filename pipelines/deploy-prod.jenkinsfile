@@ -43,7 +43,7 @@ pipeline {
             steps {
                withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
                  sh '''
-                 git push https://$GITHUB_TOKEN@github.com/dsarid/nf-devops.git master
+                 git push https://github.com/dsarid/polybot_infra master
                  '''
                }
             }
