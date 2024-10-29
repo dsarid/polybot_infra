@@ -23,7 +23,7 @@ spec:
           - name: S3_BUCKET
             value: k8s-danielms-prod
           - name: TELEGRAM_APP_URL
-            value: http://polybot:8443
+            value: polybot:8443
           - name: DYNAMO_NAME
             value: prediction-db-tf-prod
           - name: SQS_QUEUE_NAME
