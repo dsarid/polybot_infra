@@ -44,7 +44,8 @@ pipeline {
                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
                  sh '''
                     echo $GITHUB_TOKEN
-                    git push https://$GITHUB_TOKEN@github.com/dsarid/polybot_infra.git master
+                    git remote set-url origin https://$GITHUB_TOKEN@github.com/dsarid/polybot_infra.git
+                    git push origin master
                  '''
                }
             }
