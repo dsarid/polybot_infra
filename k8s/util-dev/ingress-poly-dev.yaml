@@ -8,7 +8,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - danielms-aws-project.int-devops.click
+    - danielms-dev.int-devops.click
     # This assumes tls-secret exists and the SSL
     # certificate contains a CN for foo.bar.com
     secretName: tls-secret
