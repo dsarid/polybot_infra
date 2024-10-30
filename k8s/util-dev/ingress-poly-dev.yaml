@@ -14,7 +14,7 @@ spec:
     secretName: tls-secret
 
   rules:
-  - host: danielms-aws-project.int-devops.click
+  - host: danielms-dev.int-devops.click
     http:
       paths:
       - path: /
