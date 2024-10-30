@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polybot
+  labels:
+    app: polybot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: polybot
+  template:
+    metadata:
+      labels:
+        app: polybot
+    spec:
+      containers:
+      - name: polybot
+        image: inkcube/int-polybot:0.0.2
+        env:
+          - name: REGION
+            value: eu-central-1
+          - name: S3_BUCKET
+            value: k8s-danielms-dev
+          - name: TELEGRAM_APP_URL
+            value: danielms-aws-project.int-devops.click
+          - name: DYNAMO_NAME
+            value: prediction-db-tf-dev
+          - name: TELEGRAM_SECRET_TOKEN
+            value: tf-telegram-token-e811148a-df75-123d-ab08-7cec7b084d7b-dev
+          - name: SQS_QUEUE_NAME
+            value: danielms-tf-queue-dev
+          - name: CERTIFICATE_ARN
+            value: arn:aws:acm:eu-central-1:019273956931:certificate/314ef06a-48ca-4c36-8a6d-45cafb65ff32
+        resources:
+#          requests:
+#            cpu: 200m
+#            memory: 500Mi
+#          limits:
+#            cpu: 500m
+#            memory: 1000Mi
