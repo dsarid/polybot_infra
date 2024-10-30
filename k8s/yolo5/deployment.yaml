@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: yolo
-        image: inkcube/int-yolo:0.1.1
+        image: inkcube/int-yolo:prod_v0.2.5
         env:
           - name: REGION
             value: eu-central-1
