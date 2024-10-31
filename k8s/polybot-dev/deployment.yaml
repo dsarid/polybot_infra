@@ -27,7 +27,7 @@ spec:
           - name: DYNAMO_NAME
             value: prediction-db-tf-dev
           - name: TELEGRAM_SECRET_TOKEN
-            value: tf-telegram-token-e811148a-df75-123d-ab08-7cec7b084d7b-dev
+            value: tf-telegram-token-c14faf8a-cc2a-3448-f9fe-62a35e4882fc-prod
           - name: SQS_QUEUE_NAME
             value: danielms-tf-queue-dev
           - name: CERTIFICATE_ARN
