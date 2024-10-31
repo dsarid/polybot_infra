@@ -27,11 +27,11 @@ spec:
           - name: DYNAMO_NAME
             value: prediction-db-tf-dev
           - name: TELEGRAM_SECRET_TOKEN
-            value: tf-telegram-token-c14faf8a-cc2a-3448-f9fe-62a35e4882fc-prod
+            value: tf-telegram-token-e811148a-df75-123d-ab08-7cec7b084d7b-dev
           - name: SQS_QUEUE_NAME
             value: danielms-tf-queue-dev
           - name: CERTIFICATE_ARN
-            value: arn:aws:acm:eu-central-1:019273956931:certificate/314ef06a-48ca-4c36-8a6d-45cafb65ff32
+            value: arn:aws:acm:eu-central-1:019273956931:certificate/3cc1e6e9-a0ae-4fd6-85d4-c55830865a43
         resources:
 #          requests:
 #            cpu: 200m
