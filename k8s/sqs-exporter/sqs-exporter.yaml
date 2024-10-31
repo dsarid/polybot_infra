@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polybot
+  labels:
+    app: polybot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqs-exporter
+  template:
+    metadata:
+      labels:
+        app: sqs-exporter
+    spec:
+      containers:
+      - name: sqs-exporter
+        image: jmal98/sqs-exporter
+        env:
+          - name: "SQS_QUEUE_NAMES"
+            value: 'danielms-tf-queue-prod,danielms-tf-queue-dev'
+
+        resources:
+#          requests:
+#            cpu: 200m
+#            memory: 500Mi
+#          limits:
+#            cpu: 500m
+#            memory: 1000Mi
